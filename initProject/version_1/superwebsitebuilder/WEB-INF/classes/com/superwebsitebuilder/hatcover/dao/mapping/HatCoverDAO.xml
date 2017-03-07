@@ -1,0 +1,72 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+
+<mapper namespace="com.superwebsitebuilder.hatcover.dao.HatCoverDAO" >
+
+	<resultMap id="resultPostList" type="com.superwebsitebuilder.websitelevel.data.businesslogic.PostData">
+		<result column="ID" 						property="id"																				/>
+		<result column="KW_URL" 					property="kwUrl" 					javaType="string" 		jdbcType="VARCHAR" 				/>
+		<result column="POST_TYPE" 					property="postType" 												 						/>
+		<result column="POST_ID" 					property="postId" 					javaType="string" 		jdbcType="VARCHAR" 				/>
+		<result column="POST_DEFAULT_SELF_URL" 		property="postDefaultSelfUrl" 		javaType="string" 		jdbcType="VARCHAR" 				/>
+		<result column="FIELD_1" 					property="field1" 					javaType="string" 		jdbcType="VARCHAR" 				/>
+		<result column="FIELD_2" 					property="field2" 					javaType="string" 		jdbcType="VARCHAR" 				/>
+		<result column="FIELD_3" 					property="field3" 					javaType="string" 		jdbcType="VARCHAR" 				/>
+		<result column="FIELD_4" 					property="field4" 					javaType="string" 		jdbcType="VARCHAR" 				/>
+		<result column="FIELD_5" 					property="field5" 					javaType="string" 		jdbcType="VARCHAR" 				/>
+		<result column="FIELD_6" 					property="field6" 					javaType="string" 		jdbcType="VARCHAR" 				/>
+		<result column="CREATED_DATE" 				property="createdDate" 				javaType="string" 		jdbcType="TIMESTAMP" 			/>
+		<result column="LAST_UPDATE_DATE" 			property="lastUpdateDate" 			javaType="string" 		jdbcType="TIMESTAMP" 			/>
+		<result column="ENABLED" 					property="enabled" 																			/>
+	</resultMap>
+	
+	<select id="getOnePostByPostSelfUrl" parameterType="com.superwebsitebuilder.websitelevel.data.businesslogic.DBTransferData" resultMap="resultPostList">
+		SELECT 
+			AT.ID,
+			AT.KW_URL,
+			AT.POST_TYPE,
+			AT.POST_ID,
+			AT.POST_DEFAULT_SELF_URL,
+			AT.FIELD_1,
+			AT.FIELD_2,
+			AT.FIELD_3,
+			AT.FIELD_4,
+			AT.FIELD_5,
+			AT.FIELD_6,
+			AT.CREATED_DATE,
+			AT.LAST_UPDATE_DATE,
+			AT.ENABLED
+		FROM ${articleTableName} AT
+		WHERE AT.POST_DEFAULT_SELF_URL = '${postSelfUrl}'
+		LIMIT 1
+	</select>
+	
+	<select id="getArticlePagePostListByKeyWord" parameterType="com.superwebsitebuilder.websitelevel.data.businesslogic.DBTransferData" resultMap="resultPostList">
+		SELECT 
+			AT.ID,
+			AT.KW_URL,
+			AT.POST_TYPE,
+			AT.POST_ID,
+			AT.POST_DEFAULT_SELF_URL,
+			AT.FIELD_1,
+			AT.FIELD_2,
+			AT.FIELD_3,
+			AT.FIELD_4,
+			AT.FIELD_5,
+			AT.FIELD_6,
+			AT.CREATED_DATE,
+			AT.LAST_UPDATE_DATE,
+			AT.ENABLED
+		FROM ${articleTableName} AT
+		WHERE AT.KW_URL = '${keyWordUrl}'
+	</select>
+	
+	<insert id="insertHatCoverPostListForArticlePage" parameterType="com.superwebsitebuilder.websitelevel.data.businesslogic.DBTransferData">
+		INSERT INTO ${articleTableName} (KW_URL, POST_TYPE, POST_ID, POST_DEFAULT_SELF_URL, FIELD_1, FIELD_2, FIELD_3, CREATED_DATE, LAST_UPDATE_DATE, ENABLED) 
+		VALUES 
+		<foreach collection="postList" item="item" index="index" separator="," >
+			('${keyWordUrl}', '${item.selfType}', '${item.id}', '${item.selfUrl}','${item.url}', '${item.title}', '${item.description}', NOW(), NOW(), '1')
+	    </foreach>
+	</insert>
+	
+</mapper>

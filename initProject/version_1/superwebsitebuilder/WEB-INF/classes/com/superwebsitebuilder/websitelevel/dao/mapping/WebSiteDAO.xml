@@ -1,0 +1,68 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+
+<mapper namespace="com.superwebsitebuilder.websitelevel.dao.WebSiteDAO" >
+
+	<resultMap id="websiteResultMap" type="com.superwebsitebuilder.websitelevel.data.websitefunction.WebSiteData">
+		<result column="ID" 					property="id" 				 													/>
+		<result column="ORDER_NUMBER" 			property="orderNum" 					javaType="string" jdbcType="VARCHAR" 	/>
+		<result column="ACTIVATE" 				property="activate" 					javaType="string" jdbcType="VARCHAR" 	/>
+		<result column="NAME" 					property="name" 						javaType="string" jdbcType="VARCHAR" 	/>
+		<result column="SHOW_NAME" 				property="showName" 					javaType="string" jdbcType="VARCHAR" 	/>
+		<result column="CODE" 					property="code" 						javaType="string" jdbcType="VARCHAR" 	/>
+		<result column="HOME_PAGE_TITLE" 		property="indexTitle" 					javaType="string" jdbcType="VARCHAR" 	/>
+		<result column="HOME_PAGE_TITLE_SUFIX" 	property="indexTitleSufix" 				javaType="string" jdbcType="VARCHAR" 	/>
+		<result column="DESCRIPTION" 			property="desc" 						javaType="string" jdbcType="VARCHAR" 	/>
+		<result column="DOMAIN_NAME" 			property="domainName" 					javaType="string" jdbcType="VARCHAR" 	/>
+		<result column="BUSINESS_TYPE" 			property="businessType" 				javaType="string" jdbcType="VARCHAR" 	/>
+		<result column="ES_INDEX_NAME" 			property="esIndexName" 					javaType="string" jdbcType="VARCHAR" 	/>
+		<result column="ES_ARTICLE_TYPE" 		property="esArticleTypeName" 			javaType="string" jdbcType="VARCHAR" 	/>
+		<result column="ES_POST_TYPE" 			property="esPostTypeName" 				javaType="string" jdbcType="VARCHAR" 	/>
+		<result column="HAS_CAT" 				property="hasCat" 						javaType="string" jdbcType="VARCHAR" 	/>
+		<result column="NEED_ARTICLE_EXTENDS" 	property="needArticleExtends" 			javaType="string" jdbcType="VARCHAR" 	/>
+		<result column="LOCAL_PORT" 			property="localPort" 					javaType="string" jdbcType="VARCHAR" 	/>
+		<result column="START_YEAR" 			property="startYear" 					javaType="string" jdbcType="VARCHAR" 	/>
+		<result column="RELATED_ARTICLE_NUM" 	property="relatedArticleNum" 			javaType="string" jdbcType="VARCHAR" 	/>
+		<result column="CONTENT_POST_NUM" 		property="contentPostNum" 				javaType="string" jdbcType="VARCHAR" 	/>
+		<result column="POST_LINK_TO" 			property="postLinkTo" 					javaType="string" jdbcType="VARCHAR" 	/>
+		<result column="CREATED_DATE" 			property="createDate" 					javaType="string" jdbcType="TIMESTAMP"	/>
+		<result column="LASTUPDATE_DATE" 		property="lastUpdateDate" 				javaType="string" jdbcType="TIMESTAMP"	/>
+		<result column="ENABLED" 				property="enabled" 			 													/>
+	</resultMap>
+	
+	<select id="getAllWebSite" parameterType="String" resultMap="websiteResultMap">
+		<include refid="selectAllWebSite"/>
+	</select>
+
+	<sql id="selectAllWebSite">  
+		SELECT 
+			WW.ID,
+			WW.ORDER_NUMBER,
+			WW.ACTIVATE,
+			WW.NAME,
+			WW.SHOW_NAME,
+			WW.CODE,
+			WW.HOME_PAGE_TITLE,
+			WW.HOME_PAGE_TITLE_SUFIX,
+			WW.DESCRIPTION,
+			WW.DOMAIN_NAME,
+			WW.BUSINESS_TYPE,
+			WW.ES_INDEX_NAME,
+			WW.ES_ARTICLE_TYPE,
+			WW.ES_POST_TYPE,
+			WW.HAS_CAT,
+			WW.NEED_ARTICLE_EXTENDS,
+			WW.LOCAL_PORT,
+			WW.START_YEAR,
+			WW.RELATED_ARTICLE_NUM,
+			WW.CONTENT_POST_NUM,
+			WW.POST_LINK_TO,
+			WW.CREATED_DATE,
+			WW.LAST_UPDATE_DATE,
+			WW.ENABLED
+		FROM SWSBT_WEBSITE WW
+		WHERE ENABLED = 1
+		AND ACTIVATE = 'Y';
+	</sql>
+	
+</mapper>

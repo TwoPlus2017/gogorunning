@@ -1,0 +1,37 @@
+<?xml version="1.0" encoding="utf-8"?>	
+<beans xmlns="http://www.springframework.org/schema/beans"
+	xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:p="http://www.springframework.org/schema/p"
+	xmlns:context="http://www.springframework.org/schema/context"
+	xmlns:aop="http://www.springframework.org/schema/aop" xmlns:tx="http://www.springframework.org/schema/tx"
+	xsi:schemaLocation="http://www.springframework.org/schema/beans
+
+	http://www.springframework.org/schema/beans/spring-beans-4.0.xsd
+	http://www.springframework.org/schema/context
+	http://www.springframework.org/schema/context/spring-context-4.0.xsd
+	http://www.springframework.org/schema/tx
+	http://www.springframework.org/schema/tx/spring-tx-4.0.xsd
+	http://www.springframework.org/schema/aop
+	http://www.springframework.org/schema/aop/spring-aop-4.0.xsd">
+    
+    <context:annotation-config />
+    
+    <context:component-scan base-package="com.superwebsitebuilder.hatcover.service.impl" />
+   	
+	<bean id="cacheFactory" class="com.superwebsitebuilder.platform.factory.CacheFactory" />
+	<bean id="managerFactory" class="com.superwebsitebuilder.platform.factory.ManagerFactory" />
+	<bean id="esFactory" class="com.superwebsitebuilder.platform.factory.ESClientFactory" />
+	
+	<bean id="daoFacade" class="com.superwebsitebuilder.websitelevel.dao.DAOFacade" />
+	<bean class="com.superwebsitebuilder.platform.listener.InitSuperWebSiteApplicatLevelListener" />
+	<bean class="com.superwebsitebuilder.platform.listener.InitLiveWebSiteListener" />
+	<bean class="com.superwebsitebuilder.platform.listener.InitHatCoverWebSiteListener" />
+	
+	<bean id="postManagerProxy" class="com.superwebsitebuilder.websitelevel.managerproxy.PostManagerProxy" />
+	<bean id="articleManagerProxy" class="com.superwebsitebuilder.websitelevel.managerproxy.ArticleManagerProxy" />
+	
+	<bean id="hatCoverArticleManager" class="com.superwebsitebuilder.hatcover.manager.HatCoverArticleManager" />
+	<bean id="cnPostManager" class="com.superwebsitebuilder.hatcover.manager.ContentPostManager" />
+	<bean id="esManager" class="com.superwebsitebuilder.websitelevel.manager.impl.ElasticSearchManager" />
+	<bean id="acManager" class="com.superwebsitebuilder.applicationLevel.manager.impl.AdminConfigManager" />
+	<bean id="esHandler" class="com.superwebsitebuilder.espider.elasticsearch.ElasticSearchHandler" />
+</beans>

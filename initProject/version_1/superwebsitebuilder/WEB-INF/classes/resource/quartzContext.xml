@@ -1,0 +1,50 @@
+<?xml version="1.0" encoding="utf-8"?>	
+<beans xmlns="http://www.springframework.org/schema/beans"
+	xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:p="http://www.springframework.org/schema/p"
+	xmlns:context="http://www.springframework.org/schema/context"
+	xmlns:aop="http://www.springframework.org/schema/aop" xmlns:tx="http://www.springframework.org/schema/tx"
+	xsi:schemaLocation="http://www.springframework.org/schema/beans
+
+	http://www.springframework.org/schema/beans/spring-beans-4.0.xsd
+	http://www.springframework.org/schema/context
+	http://www.springframework.org/schema/context/spring-context-4.0.xsd
+	http://www.springframework.org/schema/tx
+	http://www.springframework.org/schema/tx/spring-tx-4.0.xsd
+	http://www.springframework.org/schema/aop
+	http://www.springframework.org/schema/aop/spring-aop-4.0.xsd">
+    
+   	<!-- WebSiteLevel Quartz Section  -->
+	<bean id="updateHatCoverWebSiteRelatedArticleJob" class="com.superwebsitebuilder.platform.listener.InitHatCoverWebSiteListener"/>
+	<bean id="updateHatCoverWebSiteRelatedArticleJobDetail" class="org.springframework.scheduling.quartz.MethodInvokingJobDetailFactoryBean">
+        <property name="targetObject" ref="updateHatCoverWebSiteRelatedArticleJob"/>
+        <property name="targetMethod" value="preparingRandomKeyWordCache"/>
+        <property name="concurrent" value="false"/>
+	</bean>
+	<bean id="updateHatCoverWebSiteRelatedArticleTrigger" class="org.springframework.scheduling.quartz.CronTriggerFactoryBean">
+		<property name="jobDetail" ref="updateHatCoverWebSiteRelatedArticleJobDetail"/>
+		<property name="cronExpression" value="0 20 18 * * ?" />
+	</bean>
+	
+	<!-- ApplicationLevel Quartz Section  -->
+	<bean id="refreshAdminConfigJob" class="com.superwebsitebuilder.platform.listener.InitSuperWebSiteApplicatLevelListener"/>
+	<bean id="refreshAdminConfigJobDetail" class="org.springframework.scheduling.quartz.MethodInvokingJobDetailFactoryBean">
+        <property name="targetObject" ref="refreshAdminConfigJob"/>
+        <property name="targetMethod" value="preparingAdminConfigCache"/>
+        <property name="concurrent" value="false"/>
+	</bean>
+	<bean id="refreshAdminConfigTrigger" class="org.springframework.scheduling.quartz.CronTriggerFactoryBean">
+		<property name="jobDetail" ref="refreshAdminConfigJobDetail"/>
+		<property name="cronExpression" value="0 0 0/1 * * ?" />
+	</bean>
+	
+	<bean class="org.springframework.scheduling.quartz.SchedulerFactoryBean">
+		<property name="triggers">
+			<list>
+				<ref bean="refreshAdminConfigTrigger"/>
+				<ref bean="updateHatCoverWebSiteRelatedArticleTrigger"/>
+			</list>
+		</property>
+		<property name="autoStartup" value="true"/>
+	</bean>
+	
+</beans>
