@@ -25,6 +25,7 @@ sed -i '/^# path.logs/a path.logs: \/wsworkenv\/runtimeLogs\/esLogs' ${es_path}/
 groupadd es
 useradd -r -g es es
 chown -R es:es ${es_path}
+chown -R es:es /wsworkenv/runtimeLogs/esLogs
 
 
 cd ${es_path}/bin
