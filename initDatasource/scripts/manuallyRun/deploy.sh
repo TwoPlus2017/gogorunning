@@ -1,5 +1,8 @@
 #!/bin/bash
 project_path=/wsworkenv/projects
+
+# deploy superwebsitebuilder
+echo "start to deploy superwebsitebuilder"
 project_name=superwebsitebuilder
 # get latest source code from git
 git_url=https://github.com/TwoPlus2017/superwebsitebuilder.git
@@ -33,4 +36,35 @@ do
   rsync -rtv -P --delete --exclude 'logs' ${project_path}/${project_name}/WebContent/ ${tomcat_i}/webapps/${project_name}/
   chown -R tomcat:tomcat ${tomcat_i}/webapps/${project_name}
 done
+echo "end deploy superwebsitebuilder"
 
+# deploy superwebsitebuilder
+echo "start to deploy colorfulthemes"
+project_name=colorfulthemes
+# get latest source code from git
+git_url=https://github.com/TwoPlus2017/colorfulthemes.git
+if [ -d ${project_path}/${project_name} ]
+then
+  cd ${project_path}/${project_name}
+  git pull
+else
+  mkdir -p ${project_path}
+  cd ${project_path}
+  git clone ${git_url}
+fi
+
+# update nginx themes
+nginx_path=/wsworkenv/nginx-1.10.3
+rsync -rtv -P --delete --exclude 'logs' ${project_path}/${project_name}/WebContent/domainsetup/ ${nginx_path}/domainsetup/
+rsync -rtv -P --delete --exclude 'logs' ${project_path}/${project_name}/WebContent/wsworkspace/ ${nginx_path}/wsworkspace/
+chown -R nginx:nginx ${nginx_path}
+
+# make dir for nginx logs
+for i in $(ls ${nginx_path}/domainsetup/) 
+do
+echo "mkdir -p /wsworkenv/runtimeLogs/nginxLogs/${i}/dailyBackup"
+done
+
+service nginx reload
+
+echo "end deploy colorfulthemes"
