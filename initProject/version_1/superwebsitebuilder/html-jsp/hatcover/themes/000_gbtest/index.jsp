@@ -9,7 +9,7 @@
     <!-- Bootstrap -->
     <link href="assets/css/bootstrap.min.css" rel="stylesheet">
     <!--Custom template CSS-->
-     <link href="style.css" rel="stylesheet">
+     <link href="assets/css/style.css" rel="stylesheet">
      <!--Custom template CSS Responsive-->
      <link href="assets/webcss/site-responsive.css" rel="stylesheet">
        <!--Animated CSS -->
