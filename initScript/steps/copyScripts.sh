@@ -18,8 +18,8 @@ echo "
 # each 1 hrs run once time
 0 * * * * root ${scripts_path}/wsworkenv/autoRun/clear_sys_mem_daily.sh
 
-# each 1 day run once time
-0 0 * * * root ${scripts_path}/wsworkenv/autoRun/dailyBackupLogs.sh
+# each 1 day run once time, at 00:01 (just 1 min later than normal daily rotation like log4j
+1 0 * * * root ${scripts_path}/wsworkenv/autoRun/dailyBackupLogs.sh
 
 " >>/etc/crontab
 
