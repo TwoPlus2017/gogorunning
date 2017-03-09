@@ -25,6 +25,13 @@ sed -i -e 's/^jdbc.url=/#&/g' -e '/jdbc.url=/a jdbc.url=jdbc:mysql:\/\/127.0.0.1
 sed -i -e 's/^jdbc.username=/#&/g' -e '/jdbc.username=/a jdbc.username=root' jdbc-mysql.properties
 sed -i -e 's/^jdbc.password=/#&/g' -e '/jdbc.password=/a jdbc.password=abcd@1234' jdbc-mysql.properties
 
+env=$1
+if [ "${env}" = "prod" ]
+then
+  sed -i -e 's/^host_name=/#&/g' -e "/host_name=/a host_name=$(hostname -s)" host-and-application.properties
+  sed -i -e 's/^host_ip=/#&/g' -e "/host_ip=/a host_ip=$(hostname -I)" host-and-application.properties
+fi
+
 # make the change of web.xml to inform tomcat there is something changed
 webxml_file=${project_path}/${project_name}/WebContent/WEB-INF/web.xml
 printf "\n<!-- $(date) add comments to trigger tomcat auto re-deployment -->" >>${webxml_file}
