@@ -28,7 +28,7 @@ sed -i -e 's/^jdbc.password=/#&/g' -e '/jdbc.password=/a jdbc.password=abcd@1234
 env=$1
 if [ "${env}" = "prod" ]
 then
-  sed -i -e 's/^host_name=/#&/g' -e "/host_name=/a host_name=$(hostname -s)" host-and-application.properties
+  sed -i -e 's/^host_name=/#&/g' -e "/host_name=/a host_name=$(hostname)" host-and-application.properties
   sed -i -e 's/^host_ip=/#&/g' -e "/host_ip=/a host_ip=$(hostname -I)" host-and-application.properties
 fi
 
