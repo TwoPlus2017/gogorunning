@@ -69,7 +69,7 @@ chown -R nginx:nginx ${nginx_path}
 # make dir for nginx logs
 for i in $(ls ${nginx_path}/domainsetup/) 
 do
-echo "mkdir -p /wsworkenv/runtimeLogs/nginxLogs/${i}/dailyBackup"
+  mkdir -p /wsworkenv/runtimeLogs/nginxLogs/${i%.*}/dailyBackup
 done
 
 service nginx reload
