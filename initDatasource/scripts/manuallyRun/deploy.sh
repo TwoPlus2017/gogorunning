@@ -9,6 +9,7 @@ git_url=https://github.com/TwoPlus2017/superwebsitebuilder.git
 if [ -d ${project_path}/${project_name} ]
 then
   cd ${project_path}/${project_name}
+  git reset --hard origin/master
   git pull
 else
   mkdir -p ${project_path}
@@ -53,6 +54,7 @@ git_url=https://github.com/TwoPlus2017/colorfulthemes.git
 if [ -d ${project_path}/${project_name} ]
 then
   cd ${project_path}/${project_name}
+  git reset --hard origin/master
   git pull
 else
   mkdir -p ${project_path}
