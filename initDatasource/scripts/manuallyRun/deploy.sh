@@ -64,8 +64,8 @@ fi
 
 # update nginx themes
 nginx_path=/wsworkenv/nginx-1.10.3
-rsync -rtv -P --delete --exclude 'logs' ${project_path}/${project_name}/WebContent/domainsetup/ ${nginx_path}/domainsetup/
-rsync -rtv -P --delete --exclude 'logs' ${project_path}/${project_name}/WebContent/wsworkspace/ ${nginx_path}/wsworkspace/
+rsync -rtv -P --exclude 'logs' ${project_path}/${project_name}/WebContent/domainsetup/ ${nginx_path}/domainsetup/
+rsync -rtv -P --exclude 'logs' ${project_path}/${project_name}/WebContent/wsworkspace/ ${nginx_path}/wsworkspace/
 chown -R nginx:nginx ${nginx_path}
 
 # make dir for nginx logs
